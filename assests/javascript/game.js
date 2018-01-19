@@ -16,7 +16,7 @@ function beginGame() {
 
 	replaceWithDash = randomPick.replace(/[^ ]/g,'-'); 
 	replaceWithDash = replaceWithDash.split("");
-	console.log(replaceWithDash)
+	// console.log(replaceWithDash)
 
 	var html =
           "<p>Number of Guesses: " + numGuesses + "</p>" +
@@ -33,92 +33,62 @@ function beginGame() {
 
 
 function compareLetter(letter) {
+ 	for (var i=0; i<randomPick.length; i++) {
+		if (randomPick[i] == letter) {
+			var letterCheck = true;
+		}
+	}
 
-	console.log(letter)
-
-		for (var i = 0; i < randomPick.length; i++){
-			console.log(replaceWithDash)
-			console.log(numGuesses);
-			if(letter === randomPick[i]) {
+		if (letterCheck) {
+			for (var i = 0; i < randomPick.length; i++) {
+				if (randomPick[i] === letter) {
 				replaceWithDash[i] = letter;
 			}
-			else {
-				numGuesses--;
-				if (numGuesses === 0){
-					// endGame();
-				}
-			}
 		}
- // for (i = 0; i < randomPick.length; i++) {
-	// 	if (randomPick[i] === letter) {
-	// 		 var letterCheck = true
-	// 	}
+	} 
 
-	// 		if (letterCheck) {
-	// 			for (i = 0; i < randomPick.length; i++) {
-	// 				if (randomPick[i] === letter) {
-	// 			replaceWithDash[i] = letter;
-	// 		}
-	// 	}
-	// } 
-	// else {
-	// 	if (numGuesses > 0) {
-	// 		incorrectGuesses.push(letter)
-	// 		numGuesses--;
-	// 	}
-	// 	else {
-	// 		endGame();
-	// 	}
-	// 	// incorrectGuesses.push(letter);
-	// 	// console.log(incorrectGuesses);
-	// 	// numGuesses--; 
-	// }
-	// // console.log(replaceWithDash);
-	// // console.log(numGuesses);
-	// console.log(incorrectGuesses);
-	// }
+	else {
+		incorrectGuesses.push(letter);
+		numGuesses--;
+	}
 }
-// compareLetter("a");
-// compareLetter("e");
-// compareLetter("l");
-// compareLetter("a");
-// compareLetter("w");
-// compareLetter("r");
 
-// function endGame() {
-// 	var html =
-//           "<p>Number of Guesses: " + numGuesses + "</p>" +
-//           "<p>Number of Wins: " + wins + "</p>" +
-//           "<p>Number of Losses: " + losses + "</p>" 
+function endGame() {
+	var html =
+          "<p>Number of Guesses: " + numGuesses + "</p>" +
+          "<p>Number of Wins: " + wins + "</p>" +
+          "<p>Number of Losses: " + losses + "</p>" 
 
-//   document.querySelector("#gameStatus").innerHTML = html;        
-//   document.querySelector("#word").innerHTML = "<p>" + replaceWithDash + "</p>";
+  document.querySelector("#gameStatus").innerHTML = html;        
+  document.querySelector("#word").innerHTML = "<p>" + replaceWithDash + "</p>";
 
-//   // var word = randomPick.split('');
-//   // wordSplit.push(word);
+  // var word = randomPick.split('');
+  // wordSplit.push(word);
 
-//   if (wordSplit.toString() === replaceWithDash.toString()) {
-//   	wins++;
-//   document.querySelector("#gameStatus").innerHTML = "<p>Number of Wins: " + wins + "</p>";
-//   }
-// 	else {
-// 		if (numGuesses === 0) {
-// 		losses++;
-// 	  }
-// 	}
-// }
+  if (wordSplit.toString() === replaceWithDash.toString()) {
+  	wins++;
+  document.querySelector("#gameStatus").innerHTML = "<p>Number of Wins: " + wins + "</p>";
+  beginGame();
+  }
+	else {
+		if (numGuesses === 0) {
+		losses++;
+		beginGame();
+	  }
+	}
+}
 // beginGame()
 // endGame();	
 // beginGame()
 
+beginGame();
 document.onkeyup = function(event) {
 		var playerGuess = event.key;
 
 		compareLetter(playerGuess);
-		// endGame();
+		endGame();
 }
 
-beginGame();
 
 
 
